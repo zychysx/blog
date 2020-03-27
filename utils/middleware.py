@@ -1,5 +1,6 @@
 from django.utils.deprecation import MiddlewareMixin
 from django.shortcuts import HttpResponse
+from django.utils import timezone
 from django.conf import settings
 
 from datetime import timedelta, datetime
@@ -15,7 +16,7 @@ exclude_path = [
 
 
 def handle_frequency(request, user_ip):
-    request_time = datetime.now() - timedelta(hours=settings.FREQUENCY_HOUR, minutes=0, seconds=0)
+    request_time = datetime.now(tz=timezone.utc) - timedelta(hours=settings.FREQUENCY_HOUR, minutes=0, seconds=0)
     f_num = UserLoginIP.objects.filter(IP=user_ip, create_time__gte=request_time).order_by('-create_time').count()
     if not request.session.get('username', None):
         if f_num > settings.IP_FREQUENCY_NUM and user_ip not in settings.IP_FREQUENCY_LIST:
