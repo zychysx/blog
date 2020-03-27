@@ -1,7 +1,7 @@
 .idea/
 .vscode/
 __pycache__/
-migrations/*
+migrations/*.py
 !migrations/__init__.py
 .gitattributes
 
