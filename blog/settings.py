@@ -45,8 +45,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "crispy_forms",
     "xadmin",
+    'ckeditor',
+    'ckeditor_uploader',
 
     "blog_user",
+    "article",
 ]
 
 MIDDLEWARE = [
@@ -163,4 +166,64 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+"""ckeditor配置"""
+MEDIA_URL = '/media/article_images/'
+# 放在django项目根目录，同时也需要创建media文件夹
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/article_images')
+
+CKEDITOR_UPLOAD_PATH = 'upload/'
+
+CKEDITOR_CONFIGS = {
+    'article_config': {
+            'toolbar': (
+                ['div', 'Source', '-', 'Save', 'NewPage', 'Preview', '-', 'Templates'],
+                ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Print', 'SpellChecker', 'Scayt'],
+                ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'],
+                ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
+                ['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript'],
+                ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'Blockquote'],
+                ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+                ['Link', 'Unlink', 'Anchor'],
+                ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak'],
+                ['Styles', 'Format', 'Font', 'FontSize'],
+                ['TextColor', 'BGColor'],
+                ['Maximize', 'ShowBlocks', '-', 'About', 'pbckcode'],
+                ['Blockquote', 'CodeSnippet'],
+            ),
+            'width': 'auto',
+            # 添加按钮在这里
+            'toolbar_Custom': [
+                ['NumberedList', 'BulletedList'],
+                ['Blockquote', 'CodeSnippet'],
+            ],
+            # 插件
+            'extraPlugins': ','.join(['codesnippet', 'widget', 'lineutils']),
+        },
+    'comment': {
+            'toolbar': (
+                ['div', 'Source', '-', 'Save', 'NewPage', 'Preview', '-', 'Templates'],
+                ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Print', 'SpellChecker', 'Scayt'],
+                ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'],
+
+                ['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript'],
+                ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'Blockquote'],
+                ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+                ['Link', 'Unlink', 'Anchor'],
+
+                ['Styles', 'Format', 'Font', 'FontSize'],
+                ['TextColor', 'BGColor'],
+                ['Maximize', 'ShowBlocks', '-', 'About', 'pbckcode'],
+                ['Blockquote', 'CodeSnippet'],
+            ),
+            'width': 'auto',
+            # 添加按钮在这里
+            'toolbar_Custom': [
+                ['NumberedList', 'BulletedList'],
+                ['Blockquote', 'CodeSnippet'],
+            ],
+            # 插件
+            'extraPlugins': ','.join(['codesnippet', 'widget', 'lineutils']),
+        },
+}
 

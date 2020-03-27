@@ -10,8 +10,7 @@ from .models import BlogUser, UserLoginIP
 
 @admin.register(BlogUser)
 class BlogUserAdmin(admin.ModelAdmin):
-    list_display = ["user_uuid", "username", "nick_name", "gender", "email", "birthday", "is_write",
-                    "is_active", "is_super", "update_time", "create_time", "is_delete"]  # 设置要显示在列表中的字段
+    list_display = ["user_uuid", "username", "nick_name", "update_time", "create_time", "is_delete"]  # 设置要显示在列表中的字段
     search_fields = ["user_uuid", "username", "nick_name", "email"]  # 搜索字段
     date_hierarchy = "create_time"  # 详细时间分层筛选　
     list_filter = ["gender", "is_write", "birthday", "is_delete"]  # 过滤器

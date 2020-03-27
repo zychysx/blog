@@ -17,6 +17,8 @@ import xadmin
 
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 from blog_user.views import index
 
@@ -24,8 +26,12 @@ from blog_user.views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'xadmin/', xadmin.site.urls),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    
     path(r'user/', include("blog_user.urls")),
 
     path('<int:t>.html', index, name="index"),
     path('', index),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
