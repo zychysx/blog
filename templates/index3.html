@@ -17,117 +17,39 @@
                         <div class="eskimo-masonry-grid">
                             <div class="eskimo-one-column" data-columns>
                                 <!-- POST 1 -->
-                                <div class="card-masonry">
-                                    <div class="card">
-                                        <a href="single-post.html">
-                                            <img class="card-vertical-img" src="{% static 'uploads/2018/05/blog4-1-900x600.jpg' %}" alt="Ketchup Flavored Ice Cream!" />
-                                        </a>
-                                        <div class="card-border">
-                                            <div class="card-body">
-                                                <div class="card-category">
-                                                    <span><a href="category.html">Food &amp; Drink</a></span>
+{#                                <img class="card-vertical-img" src="{% static 'uploads/2018/05/blog4-1-900x600.jpg' %}" alt="Ketchup Flavored Ice Cream!" />#}
+{#                                <img class="card-vertical-img" src="{% static 'uploads/2018/05/blog1-900x600.jpg' %}" alt="Hair You've Always Dreamed Of" />#}
+{#                                <img class="card-vertical-img" src="{% static 'uploads/2018/05/blog-900x600.jpg' %}" alt="15 Of The World's Best Carnivals" />#}
+{#                                <img class="card-vertical-img" src="{% static 'uploads/2018/05/blog19-900x600.jpg' %}" alt="5 Ways to a Healthy Lifestyle" />#}
+                                {% for i in blog_list %}
+                                    <div class="card-masonry">
+                                        <div class="card">
+                                            <a href="details.html">
+                                                <img class="card-vertical-img" src="{% static 'uploads/2018/05/blog19-900x600.jpg' %}" alt="Best Breakfast In The World" />
+                                            </a>
+                                            <div class="card-border">
+                                                <div class="card-body">
+                                                    <div class="card-category">
+                                                        <span><a href="javascript:void(0);">{{ i.category.name }}</a></span>
+                                                    </div>
+                                                    <h3 class="card-title">
+                                                        <a href="/blog/{{ i.article_uuid }}.html">{{ i.article_title }}</a>
+                                                    </h3>
+                                                    <p>{{ i.content | safe | truncatechars:50 }}</p>
                                                 </div>
-                                                <h3 class="card-title">
-                                                    <a href="single-post.html">Ketchup Flavored Ice Cream!</a>
-                                                </h3>
-                                                <p>Mandaremus illum possumus ullamco e qui de nisi enim anim. Si nulla si nisi, veniam litteris sed excepteur ne ut amet deserunt tempor nam expetendis de enim mandaremus. Ita ea minim esse cillum ut eram arbitror ullamco. Tamen ad expetendis ab ipsum proident...</p>
-                                            </div>
-                                            <div class="card-footer">
-                                                <div class="eskimo-author-meta">
-                                                    By <a class="author-meta" href="author.html">Egemenerd</a>
+                                                <div class="card-footer">
+                                                    <div class="eskimo-author-meta">
+                                                        By <a class="author-meta" href="javascript:void(0);">{{ i.article_user.nick_name }}</a>
+                                                    </div>
+                                                    <div class="eskimo-date-meta">
+                                                        <a href="javascript:void(0);">{{ i.create_time }}</a>
+                                                    </div>
+                                                    <div class="eskimo-reading-meta">阅读数: {{ i.read_num }}</div>
                                                 </div>
-                                                <div class="eskimo-date-meta">
-                                                    <a href="single-post.html">May 28, 2018</a>
-                                                </div>
-                                                <div class="eskimo-reading-meta">3 min read</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- POST 2 -->
-                                <div class="card-masonry">
-                                    <div class="card">
-                                        <a href="single-post.html">
-                                            <img class="card-vertical-img" src="{% static 'uploads/2018/05/blog1-900x600.jpg' %}" alt="Hair You've Always Dreamed Of" />
-                                        </a>
-                                        <div class="card-border">
-                                            <div class="card-body">
-                                                <div class="card-category">
-                                                    <span><a href="category.html">Lifestyle</a></span>
-                                                </div>
-                                                <h3 class="card-title">
-                                                    <a href="single-post.html">Hair You've Always Dreamed Of</a>
-                                                </h3>
-                                                <p>Ex si esse deserunt, et dolore occaecat, singulis tamen e possumus voluptatibus, varias cernantur si aute quid. Noster vidisse iis exquisitaque, deserunt te irure. Ubi illum nostrud fidelissimae id occaecat duis probant. Occaecat hic quorum aliquip se...</p>
-                                            </div>
-                                            <div class="card-footer">
-                                                <div class="eskimo-author-meta">
-                                                    By <a class="author-meta" href="author.html">Egemenerd</a>
-                                                </div>
-                                                <div class="eskimo-date-meta">
-                                                    <a href="single-post.html">May 27, 2018</a>
-                                                </div>
-                                                <div class="eskimo-reading-meta">3 min read</div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- POST 3 -->
-                                <div class="card-masonry">
-                                    <div class="card">
-                                        <a href="single-post.html">
-                                            <img class="card-vertical-img" src="{% static 'uploads/2018/05/blog-900x600.jpg' %}" alt="15 Of The World's Best Carnivals" />
-                                        </a>
-                                        <div class="card-border">
-                                            <div class="card-body">
-                                                <div class="card-category">
-                                                    <span><a href="category.html">Lifestyle</a>, <a href="category.html">Travel</a></span>
-                                                </div>
-                                                <h3 class="card-title">
-                                                    <a href="single-post.html">15 Of The World's Best Carnivals</a>
-                                                </h3>
-                                                <p>Aliquip e duis. Se labore ullamco excepteur iis ullamco sint duis laboris amet sed ita occaecat de cernantur quo fore coniunctione voluptate enim senserit. Si ut nulla laboris, an eiusmod e incididunt. Non varias enim duis singulis, a quorum cupidatat. Voluptate summis...</p>
-                                            </div>
-                                            <div class="card-footer">
-                                                <div class="eskimo-author-meta">
-                                                    By <a class="author-meta" href="author.html">Egemenerd</a>
-                                                </div>
-                                                <div class="eskimo-date-meta">
-                                                    <a href="single-post.html">May 25, 2018</a>
-                                                </div>
-                                                <div class="eskimo-reading-meta">2 min read</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- POST 4 -->
-                                <div class="card-masonry">
-                                    <div class="card">
-                                        <a href="single-post.html">
-                                            <img class="card-vertical-img" src="{% static 'uploads/2018/05/blog19-900x600.jpg' %}" alt="5 Ways to a Healthy Lifestyle" />
-                                        </a>
-                                        <div class="card-border">
-                                            <div class="card-body">
-                                                <div class="card-category">
-                                                    <span><a href="category.html">Lifestyle</a></span>
-                                                </div>
-                                                <h3 class="card-title">
-                                                    <a href="single-post.html">5 Ways to a Healthy Lifestyle</a>
-                                                </h3>
-                                                <p>Mandaremus veniam ab cupidatat exquisitaque, e quae laboris domesticarum, non sint mentitum fabulas de anim proident transferrem, ita aliqua imitarentur in in labore illum eram offendit, nisi fidelissimae possumus noster ullamco se eiusmod multos ex...</p>
-                                            </div>
-                                            <div class="card-footer">
-                                                <div class="eskimo-author-meta">
-                                                    By <a class="author-meta" href="author.html">Egemenerd</a>
-                                                </div>
-                                                <div class="eskimo-date-meta">
-                                                    <a href="single-post.html">May 25, 2018</a>
-                                                </div>
-                                                <div class="eskimo-reading-meta">3 min read</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                         <!-- VIEW ALL BUTTON -->
@@ -142,216 +64,71 @@
                             <div class="eskimo-author-img">
                                 <img src="{% static 'uploads/2018/05/img.jpg' %}" alt="JOHN DOE" />
                             </div>
-                            {% if request.session.nick_name %}
-                        <a href="#" class="eskimo-author-subtitle"><h3><span>你好,{{ request.session.nick_name }}</span></h3></a>
-                        <a  id="logout_btn" class="btn btn-default" href="{% url 'logout' %}" >退出</a>
-                    {% else %}
-                    <a href="{% url 'register.html' %}" class="eskimo-author-subtitle"><h3><span>注册通道</span></h3></a>
-{#                    <p class="eskimo-author-description">I'm a Web Developer and Designer with a strong passion for UX/UI design. I have experience building websites, web applications, and brand assets. Contact me if you have any questions!</p>#}
-{#                    <div class="eskimo-author-box-btn">#}
-{#                        <a class="btn btn-default" href="about.html">CONTACT ME</a>#}
-{#                    </div>#}
-                    <form action="{% url 'login' %}" method="post">
-                        {% csrf_token %}
-                        <div class="eskimo-author-box-btn">
-                            <input type="text" name="username" id="username" placeholder="用户名">
-                        </div>
-                        <p class="eskimo-author-description"></p>
-                        <div class="eskimo-author-box-btn">
-                            <input type="password" name="password" id="password" placeholder="密码">
-                        </div>
-                        <span class="eskimo-author-description login_prompt" id="login_prompt"></span>
-                        <p class="eskimo-author-description" id="login_prompt"></p>
-                        <div class="eskimo-author-box-btn">
-                        <button type="button" id="login_btn" class="btn btn-default" >登录</button>
-                        </div>
-                    </form>
-                    {% endif %}
+                            {% if request.session.user_uuid %}
+                                <a href="#" class="eskimo-author-subtitle"><h3><span>你好,{{ request.blog_user.nick_name }}</span></h3></a>
+                                <a  id="logout_btn" class="btn btn-default" href="{% url 'logout' %}" >退出</a>
+                            {% else %}
+                            <a href="{% url 'register.html' %}" class="eskimo-author-subtitle"><h3><span>注册通道</span></h3></a>
+
+                            <form action="{% url 'login' %}" method="post">
+                                {% csrf_token %}
+                                <div class="eskimo-author-box-btn">
+                                    <input type="text" name="username" id="username" placeholder="用户名">
+                                </div>
+                                <p class="eskimo-author-description"></p>
+                                <div class="eskimo-author-box-btn">
+                                    <input type="password" name="password" id="password" placeholder="密码">
+                                </div>
+                                <span class="eskimo-author-description login_prompt" id="login_prompt"></span>
+                                <p class="eskimo-author-description" id="login_prompt"></p>
+                                <div class="eskimo-author-box-btn">
+                                <button type="button" id="login_btn" class="btn btn-default" >登录</button>
+                                </div>
+                            </form>
+                            {% endif %}
                         </div>
                         <!-- CATEGORIES -->
                         <div class="eskimo-categories eskimo-widget">
-                            <h5 class="eskimo-title-with-border"><span>Categories</span></h5>
+                            <h5 class="eskimo-title-with-border"><span>分类</span></h5>
                             <ul>
-                                <li>
-                                    <a href="category.html" title="The best restaurants, cafes, bars and shops in town.">Food &amp; Drink</a> <span class="badge badge-pill badge-default">5</span>
-                                </li>
-                                <li>
-                                    <a href="category.html" title="An up-to-date, personal urban guide.">Lifestyle</a> <span class="badge badge-pill badge-default">5</span>
-                                </li>
-                                <li>
-                                    <a href="category.html" title="Latest technology news and updates.">Technology</a> <span class="badge badge-pill badge-default">4</span>
-                                </li>
-                                <li>
-                                    <a href="category.html" title="Travel advice, information and inspiration.">Travel</a> <span class="badge badge-pill badge-default">5</span>
-                                </li>
-                                <li>
-                                    <a href="category.html" title="The latest news about movies and TV shows.">TV &amp; Movies</a> <span class="badge badge-pill badge-default">4</span>
-                                </li>
+                                {% for i in category_list %}
+                                    <li>
+                                        <a href="/blog/list.html?tag={{ i.id }}" title="The best restaurants, cafes, bars and shops in town.">{{ i.name }}</a> <span class="badge badge-pill badge-default">{{ i.tag_num }}</span>
+                                    </li>
+                                {% endfor %}
                             </ul>
                         </div>
                         <!-- POPULAR POSTS -->
                         <div class="eskimo-post-list-wrapper eskimo-widget">
-                            <h5 class="eskimo-title-with-border"><span>Popular Posts</span></h5>
+                            <h5 class="eskimo-title-with-border"><span>热门文章</span></h5>
                             <!-- POST 1 -->
+                            {% for i in popular_list %}
                             <div class="eskimo-post-list">
                                 <div class="eskimo-post-list-left">
-                                    <a href="single-post.html">
+                                    <a href="/blog/{{ i.article_uuid }}.html">
                                         <img src="{% static 'uploads/2018/05/blog19-150x150.jpg' %}" alt="5 Ways to a Healthy Lifestyle" />
                                     </a>
                                 </div>
                                 <div class="eskimo-post-list-right">
                                     <p class="eskimo-post-list-title">
-                                        <a href="single-post.html">5 Ways to a Healthy Lifestyle</a>
+                                        <a href="/blog/{{ i.article_uuid }}.html">{{ i.article_title }}</a>
                                     </p>
                                     <div class="eskimo-post-list-info">
-                                        <i class="fa fa-clock-o"></i><a href="single-post.html">May 25, 2018</a>
+                                        <i class="fa fa-clock-o"></i><a href="/blog/{{ i.article_uuid }}.html">{{ i.create_time }}</a>
                                     </div>
                                 </div>
                             </div>
-                            <!-- POST 2 -->
-                            <div class="eskimo-post-list">
-                                <div class="eskimo-post-list-left">
-                                    <a href="single-post.html">
-                                        <img src="{% static 'uploads/2018/05/blog17-150x150.jpg' %}" alt="The Best Cameras For Beginners" />
-                                    </a>
-                                </div>
-                                <div class="eskimo-post-list-right">
-                                    <p class="eskimo-post-list-title">
-                                        <a href="single-post.html">The Best Cameras For Beginners</a>
-                                    </p>
-                                    <div class="eskimo-post-list-info">
-                                        <i class="fa fa-clock-o"></i><a href="single-post.html">May 20, 2018</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- POST 3 -->
-                            <div class="eskimo-post-list">
-                                <div class="eskimo-post-list-left">
-                                    <a href="single-post.html">
-                                        <img src="{% static 'uploads/2018/05/blog13-150x150.jpg' %}" alt="Can Technology Make You Happy?" />
-                                    </a>
-                                </div>
-                                <div class="eskimo-post-list-right">
-                                    <p class="eskimo-post-list-title">
-                                        <a href="single-post.html">Can Technology Make You Happy?</a>
-                                    </p>
-                                    <div class="eskimo-post-list-info">
-                                        <i class="fa fa-clock-o"></i><a href="single-post.html">May 10, 2018</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- POST 4 -->
-                            <div class="eskimo-post-list">
-                                <div class="eskimo-post-list-left">
-                                    <a href="single-post.html">
-                                        <img src="{% static 'uploads/2018/05/blog14-150x150.jpg' %}" alt="5 Best Coffee Shops In Paris" />
-                                    </a>
-                                </div>
-                                <div class="eskimo-post-list-right">
-                                    <p class="eskimo-post-list-title">
-                                        <a href="single-post.html">5 Best Coffee Shops In Paris</a>
-                                    </p>
-                                    <div class="eskimo-post-list-info">
-                                        <i class="fa fa-clock-o"></i><a href="single-post.html">May 12, 2018</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- POST 5 -->
-                            <div class="eskimo-post-list">
-                                <div class="eskimo-post-list-left">
-                                    <a href="single-post.html">
-                                        <img src="{% static 'uploads/2018/05/blog8-150x150.jpg' %}" alt="Eyes Wide Shut Is A Classic" />
-                                    </a>
-                                </div>
-                                <div class="eskimo-post-list-right">
-                                    <p class="eskimo-post-list-title">
-                                        <a href="single-post.html">Eyes Wide Shut Is A Classic</a>
-                                    </p>
-                                    <div class="eskimo-post-list-info">
-                                        <i class="fa fa-clock-o"></i><a href="single-post.html">May 19, 2018</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- POST 6 -->
-                            <div class="eskimo-post-list">
-                                <div class="eskimo-post-list-left">
-                                    <a href="single-post.html">
-                                        <img src="{% static 'uploads/2018/05/blog6-150x150.jpg' %}" alt="Headphones For Music Lovers" />
-                                    </a>
-                                </div>
-                                <div class="eskimo-post-list-right">
-                                    <p class="eskimo-post-list-title">
-                                        <a href="single-post.html">Headphones For Music Lovers</a>
-                                    </p>
-                                    <div class="eskimo-post-list-info">
-                                        <i class="fa fa-clock-o"></i><a href="single-post.html">May 19, 2018</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- POST 7 -->
-                            <div class="eskimo-post-list">
-                                <div class="eskimo-post-list-left">
-                                    <a href="single-post.html">
-                                        <img src="{% static 'uploads/2018/05/blog4-1-150x150.jpg' %}" alt="Ketchup Flavored Ice Cream!" />
-                                    </a>
-                                </div>
-                                <div class="eskimo-post-list-right">
-                                    <p class="eskimo-post-list-title">
-                                        <a href="single-post.html">Ketchup Flavored Ice Cream!</a>
-                                    </p>
-                                    <div class="eskimo-post-list-info">
-                                        <i class="fa fa-clock-o"></i><a href="single-post.html">May 28, 2018</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- POST 8 -->
-                            <div class="eskimo-post-list">
-                                <div class="eskimo-post-list-left">
-                                    <a href="single-post.html">
-                                        <img src="{% static 'uploads/2018/05/blog2-150x150.jpg' %}" alt="The Best Tea Houses in Japan" />
-                                    </a>
-                                </div>
-                                <div class="eskimo-post-list-right">
-                                    <p class="eskimo-post-list-title">
-                                        <a href="single-post.html">The Best Tea Houses in Japan</a>
-                                    </p>
-                                    <div class="eskimo-post-list-info">
-                                        <i class="fa fa-clock-o"></i><a href="single-post.html">May 19, 2018</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- POST 9 -->
-                            <div class="eskimo-post-list">
-                                <div class="eskimo-post-list-left">
-                                    <a href="single-post.html">
-                                        <img src="{% static 'uploads/2018/05/blog16-150x150.jpg' %}" alt="Why India's cinemas are changing" />
-                                    </a>
-                                </div>
-                                <div class="eskimo-post-list-right">
-                                    <p class="eskimo-post-list-title">
-                                        <a href="single-post.html">Why India's cinemas are changing</a>
-                                    </p>
-                                    <div class="eskimo-post-list-info">
-                                        <i class="fa fa-clock-o"></i><a href="single-post.html">May 17, 2018</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- POST 10 -->
-                            <div class="eskimo-post-list">
-                                <div class="eskimo-post-list-left">
-                                    <a href="single-post.html">
-                                        <img src="{% static 'uploads/2018/05/blog15-150x150.jpg' %}" alt="How To Design A Minimalist Garden" />
-                                    </a>
-                                </div>
-                                <div class="eskimo-post-list-right">
-                                    <p class="eskimo-post-list-title">
-                                        <a href="single-post.html">How To Design A Minimalist Garden</a>
-                                    </p>
-                                    <div class="eskimo-post-list-info">
-                                        <i class="fa fa-clock-o"></i><a href="single-post.html">May 15, 2018</a>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
+{#                            <img src="{% static 'uploads/2018/05/blog17-150x150.jpg' %}" alt="The Best Cameras For Beginners" />#}
+{#                            <img src="{% static 'uploads/2018/05/blog13-150x150.jpg' %}" alt="Can Technology Make You Happy?" />#}
+{#                            <img src="{% static 'uploads/2018/05/blog14-150x150.jpg' %}" alt="5 Best Coffee Shops In Paris" />#}
+{#                            <img src="{% static 'uploads/2018/05/blog8-150x150.jpg' %}" alt="Eyes Wide Shut Is A Classic" />#}
+{#                            <img src="{% static 'uploads/2018/05/blog6-150x150.jpg' %}" alt="Headphones For Music Lovers" />#}
+{#                            <img src="{% static 'uploads/2018/05/blog4-1-150x150.jpg' %}" alt="Ketchup Flavored Ice Cream!" />#}
+{#                            <img src="{% static 'uploads/2018/05/blog2-150x150.jpg' %}" alt="The Best Tea Houses in Japan" />#}
+{#                            <img src="{% static 'uploads/2018/05/blog16-150x150.jpg' %}" alt="Why India's cinemas are changing" />#}
+{#                            <img src="{% static 'uploads/2018/05/blog15-150x150.jpg' %}" alt="How To Design A Minimalist Garden" />#}
+
                         </div>  
                         <!-- BANNER -->
                         <div class="eskimo-widget">
@@ -363,22 +140,22 @@
                         <div class="eskimo-widget">
                             <h5 class="eskimo-title-with-border"><span>Tags</span></h5>
                             <div class="eskimo-tag-cloud">
-                                <a href="category.html">aute<span>7</span></a>
-                                <a href="category.html">enim<span>7</span></a>
-                                <a href="category.html">commodo<span>7</span></a>
-                                <a href="category.html">voluptatibus<span>7</span></a>
-                                <a href="category.html">culpa<span>7</span></a>
-                                <a href="category.html">offendit<span>7</span></a>
-                                <a href="category.html">magna<span>7</span></a>
-                                <a href="category.html">quorum<span>7</span></a>
-                                <a href="category.html">mandaremus<span>7</span></a>
-                                <a href="category.html">ingeniis<span>7</span></a>
-                                <a href="category.html">tempor<span>7</span></a>
-                                <a href="category.html">summis<span>7</span></a>
-                                <a href="category.html">consequat<span>6</span></a>
-                                <a href="category.html">iudicem<span>6</span></a>
-                                <a href="category.html">expetendis<span>6</span></a>
-                                <a href="category.html">deserunt<span>6</span></a>
+                                <a href="javascript:void(0);">aute<span>7</span></a>
+                                <a href="javascript:void(0);">enim<span>7</span></a>
+                                <a href="javascript:void(0);">commodo<span>7</span></a>
+                                <a href="javascript:void(0);">voluptatibus<span>7</span></a>
+                                <a href="javascript:void(0);">culpa<span>7</span></a>
+                                <a href="javascript:void(0);">offendit<span>7</span></a>
+                                <a href="javascript:void(0);">magna<span>7</span></a>
+                                <a href="javascript:void(0);">quorum<span>7</span></a>
+                                <a href="javascript:void(0);">mandaremus<span>7</span></a>
+                                <a href="javascript:void(0);">ingeniis<span>7</span></a>
+                                <a href="javascript:void(0);">tempor<span>7</span></a>
+                                <a href="javascript:void(0);">summis<span>7</span></a>
+                                <a href="javascript:void(0);">consequat<span>6</span></a>
+                                <a href="javascript:void(0);">iudicem<span>6</span></a>
+                                <a href="javascript:void(0);">expetendis<span>6</span></a>
+                                <a href="javascript:void(0);">deserunt<span>6</span></a>
                             </div>
                         </div>
                     </div>

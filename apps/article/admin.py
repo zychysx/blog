@@ -24,7 +24,7 @@ class BlogArticleAdmin(admin.ModelAdmin):
 @admin.register(ArticleCategory)
 class ArticleCategoryAdmin(admin.ModelAdmin):
     list_display = [
-        "name", "category_type", "parents_catrgory", "update_time", "create_time", "is_delete"
+        "id", "name", "category_type", "parents_catrgory", "update_time", "create_time", "is_delete"
     ]
     search_fields = ["name"]  # 搜索字段
     date_hierarchy = "create_time"  # 详细时间分层筛选　
@@ -60,7 +60,7 @@ class UserLoginIPXadmin():
     site_footer = 'Blog运维资源管理系统'
     menu_style = "accordion"
     list_display = [
-        "name", "category_type", "parents_catrgory", "update_time", "create_time", "is_delete"
+        "id", "name", "category_type", "parents_catrgory", "update_time", "create_time", "is_delete"
     ]
     search_fields = ["name"]  # 搜索字段
     date_hierarchy = "create_time"  # 详细时间分层筛选　
