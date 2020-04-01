@@ -4,19 +4,35 @@ from django.contrib.auth.hashers import check_password
 
 from utils.verification import verification_sign_up, verification_username_exist
 from utils.session import set_session, del_session
+from article.models import BlogArticle, ArticleCategory
 from utils.msg_dict import *
-from blog_user.models import BlogUser
+from .models import BlogUser
 
 
 # Create your views here.
 
 
 def index(request, t=None):
+
+    reccent_list = BlogArticle.objects.filter(privacy=False, is_delete=False)[:5]
+    category_list = ArticleCategory.objects.filter(category_type="2", is_delete=False)
+    popular_list = BlogArticle.objects.filter(privacy=False, is_delete=False).order_by("-read_num")[:5]
+    context = {
+        "reccent_list": reccent_list,
+        "category_list": category_list,
+        "popular_list": popular_list
+    }
     if t == 2:
-        return render(request, 'index2.html')
+        blog_list = BlogArticle.objects.filter(recommend=True, is_delete=False)[:6]
+        context["blog_list"] = blog_list
+        return render(request, 'index2.html', context)
     elif t == 3:
-        return render(request, 'index3.html')
-    return render(request, 'index.html')
+        blog_list = BlogArticle.objects.filter(recommend=True, is_delete=False)[:4]
+        context["blog_list"] = blog_list
+        return render(request, 'index3.html', context)
+    blog_list = BlogArticle.objects.filter(recommend=True, is_delete=False)[:5]
+    context["blog_list"] = blog_list
+    return render(request, 'index.html', context)
 
 
 def register(request):

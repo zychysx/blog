@@ -55,14 +55,15 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'utils.middleware.IPFrequencyMiddleware',  #
+    # 'utils.middleware.IPFrequencyMiddleware',  #
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'utils.middleware.BlogUserMiddleware',  #
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'utils.middleware.UrlRecordMiddleware',  #
-    'utils.middleware.IPRecordMiddleware',  #
+    # 'utils.middleware.IPRecordMiddleware',  #
 ]
 
 ROOT_URLCONF = 'blog.urls'
@@ -78,6 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "utils.context_processors.auth",
             ],
         },
     },
@@ -158,6 +160,11 @@ IP_FREQUENCY_LIST = []
 
 USER_FREQUENCY_LIST = []
 
+LIST_ONE_PAGE_NUM = 5
+
+LIST_TOW_PAGE_NUM = 6
+
+LIST_THREE_PAGE_NUM = 9
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -199,6 +206,7 @@ CKEDITOR_CONFIGS = {
             ],
             # 插件
             'extraPlugins': ','.join(['codesnippet', 'widget', 'lineutils']),
+
         },
     'comment': {
             'toolbar': (

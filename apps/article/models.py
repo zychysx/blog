@@ -22,6 +22,9 @@ class ArticleCategory(BlogBaseModel):
         "self", models.DO_NOTHING, null=True, blank=True, verbose_name="父类目级", related_name="sub_cat"
     )
 
+    def tag_num(self):
+        return BlogArticle.objects.filter(category=self.pk).count()
+
     class Meta:
         db_table = "article_category"
         verbose_name = "文章类别"
@@ -35,7 +38,7 @@ class BlogArticle(BlogBaseModel):
     """博客文章"""
     article_uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, verbose_name="UUID",
                                     help_text="文章UUID")
-    article_title = models.CharField(max_length=300, verbose_name="文章标题")
+    article_title = models.CharField(max_length=100, unique=True, verbose_name="文章标题")
     article_user = models.ForeignKey(BlogUser, on_delete=models.DO_NOTHING, verbose_name="作者")
     category = models.ForeignKey(
         ArticleCategory, on_delete=models.DO_NOTHING, verbose_name="文章类别",

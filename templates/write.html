@@ -1,0 +1,161 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}write{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'prism/prism.css' %}">
+{% endblock %}
+{% block style %}
+    <style>
+        div.django-ckeditor-widget {
+            width: 100%;
+        }
+    </style>
+{% endblock %}
+{% block middle %}
+                <form action="{% url 'write' %}" method ="post" id="write_form">
+                    {% csrf_token %}
+                    <fieldset>
+{#                        <div class="form-row">#}
+{#                            <div class="col col-6">#}
+{#                                <div class="field-group prepend-icon">#}
+{#                                    <label class="mdn-label">First Name</label>#}
+{#                                    <span class="mdn-icon"><i class="fa fa-male"></i></span>#}
+{#                                    <span class="mdn-bar"></span>#}
+{#                                    <input type="text" class="mdn-input" placeholder="Enter firstname">#}
+{#                                </div>#}
+{#                            </div><!-- end col-6 -->#}
+{#                            <div class="col col-6">#}
+{#                                <div class="field-group prepend-icon">#}
+{#                                    <label class="mdn-label">Last Name</label>#}
+{#                                    <span class="mdn-icon"><i class="fa fa-male"></i></span>#}
+{#                                    <span class="mdn-bar"></span>#}
+{#                                    <input type="text" class="mdn-input" placeholder="Enter lastname">#}
+{#                                </div>#}
+{#                            </div><!-- end col-6 -->#}
+{#                        </div><!-- end form-row -->#}
+
+                        <div class="field-group prepend-icon">
+                            <label class="mdn-label">文章标题</label>
+                            <span class="mdn-icon"><i class="fa fa-user"></i></span>
+                            <span class="mdn-bar"></span>
+                            <input type="text" class="mdn-input" placeholder="Enter title" name="article_title">
+                        </div>
+
+                        <div class="field-group prepend-icon">
+                            <label class="mdn-label">文章内容</label>
+                            <span class="mdn-icon"><i class="fa fa-user"></i></span>
+                            <span class="mdn-bar"></span>
+                            {% for i in write_form %}
+                                {{ i }}
+                            {% endfor %}
+{#                        {{ write_form.media }}#}
+{#                            {{ write_form.as_p }}#}
+                        </div>
+
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-row">
+                            <div class="col col-4">
+                                <div class="field-group mdn-select">
+                            <label class="mdn-label">推荐 </label>
+                            <span class="mdn-icon"><i class="fa fa-user"></i></span>
+                            <span class="mdn-bar"></span>
+                            <select id="recommend" name="recommend">
+                                <option value="0">否</option>
+                                <option value="1">是</option>
+                            </select>
+                        </div>
+                            </div><!-- end col-6 -->
+                            <div class="col col-4">
+                                <div class="field-group mdn-select">
+                            <label class="mdn-label">类别 </label>
+                            <span class="mdn-icon"><i class="fa fa-user"></i></span>
+                            <span class="mdn-bar"></span>
+                            <select name="category">
+                                {% for i in teg_list %}
+                                <option value="{{ i.id }}">{{ i.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                            </div><!-- end col-6 -->
+                            <div class="col col-4">
+                                <div class="field-group mdn-select">
+                            <label class="mdn-label">隐藏</label>
+                            <span class="mdn-icon"><i class="fa fa-user"></i></span>
+                            <span class="mdn-bar"></span>
+                            <select id="privacy" name="privacy">
+                                <option value="0">否</option>
+                                <option value="1">是</option>
+                            </select>
+                        </div>
+                            </div><!-- end col-6 -->
+                        </div><!-- end form-row -->
+
+                    </fieldset>
+                    <fieldset>
+                        <div class="mdn-label-pos block-label"><label class="mdn-label"></label></div>
+                        <div class="mdn-group block-group mdn-bottom-border">
+{#                            <label class="mdn-switch">#}
+{#                                <span class="switch-toggle"></span>#}
+{#                                <span class="switch-label">I agree to the terms of service</span>#}
+{#                                <input type="checkbox" name="terms" checked>#}
+{#                            </label>#}
+                        </div><!-- mdn-group -->
+                    </fieldset>
+                    <div class="mdn-footer">
+                        <button type="button" id="sub" class="mdn-button btn-primary">提交</button>
+                        <button type="reset" class="mdn-button btn-flat">重置</button>
+                    </div>
+                </form>
+
+{% endblock %}
+{% block extra_js_files %}
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+    <script src="{% static 'prism/lib/prism/prism_patched.min.js' %}"></script>
+{% endblock %}
+{% block js %}
+    <script>
+        $(function () {
+            $('#arcticle_comment').submit(function () {
+                CKEDITOR.instances['id_blog_text'].updateElement();
+            })
+
+            $("select[name='privacy']").change(function () {
+                if ($("#privacy").val() == "1" && $("#recommend").val() == "1"){
+                    $("select[name='recommend']").val("0");
+                    alert("隐藏与推荐不能同时为‘是’")
+                }
+            })
+
+            $("select[name='recommend']").change(function () {
+                if ($("#privacy").val() == "1" && $("#recommend").val() == "1"){
+                    $("select[name='privacy']").val("0");
+                    alert("隐藏与推荐不能同时为‘是’")
+                }
+            })
+
+            $('#sub').click(function () {
+                CKEDITOR.instances['id_blog_text'].updateElement();
+                $.ajax({
+                    type: 'post',
+                    url: '/blog/write.html',
+                    data: $("form").serialize(),
+                    success: function(data) {
+                        if (data.status == "0"){
+                            alert(data.msg)
+                        }else {
+                            alert('写入成功')
+                        }
+                    },
+                    error: function (data) {
+                        alert('发生错误')
+                    }
+                });
+            })
+
+
+
+        })
+    </script>
+{% endblock %}
