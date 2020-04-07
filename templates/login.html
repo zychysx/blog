@@ -1,0 +1,78 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block jumbotron %}
+{% endblock %}
+{% block middle %}
+<!--    中间部分-->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xm-12">
+            <h1 align="center">登录</h1>
+            <h5 align="center">还没有账号 <a href="{% url 'register.html' %}">立即注册</a></h5>
+            <hr color="#336699"/>
+            <form role="form" action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <table bgcolor="#f2f2f2" align="center" width="50%">
+                    <thead>
+                    <!--                    <caption align="center">注册</caption>-->
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td align="right">
+                            用户名:&nbsp&nbsp
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="username" placeholder="请输入名字">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            密码:&nbsp&nbsp
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="password" placeholder="请输入密码">
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr align="center">
+                        <td></td>
+                        <td>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-lg">提交</button>
+                                <button type="reset" class="btn btn-danger btn-lg">重置</button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+            <hr color="#336699"/>
+            <table bgcolor="#f2f2f2" align="center" width="50%">
+                <tr align="center">
+                    <td>
+                        <div class="btn-group" align="center">
+                            <button type="button" class="btn btn-primary btn-lg">
+                                <img src="{% static 'images/qq32.png' %}" alt="">
+                                QQ登录
+                            </button>
+                            <button type="button" class="btn btn-danger btn-lg">
+                                <img src="{% static 'images/sina32.png' %}" alt="">
+                                微博登录
+                            </button>
+                            <button type="button" class="btn btn-success btn-lg">
+                                <img src="{% static 'images/wechat32.png' %}" alt="">
+                                微信登录
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<!--    END中间部分-->
+{% endblock %}

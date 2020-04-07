@@ -1,0 +1,13 @@
+.jumbotron, .jumbotron container{
+    /*background-color: #777777;*/
+    background-color: #000066;
+}
+.jumbotron .container h1{
+    color: #fff;
+}
+.jumbotron .container p{
+    color: #B9BFE4;
+}
+.tag_list li a{
+    color: black;
+}

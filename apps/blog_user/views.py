@@ -12,26 +12,21 @@ from .models import BlogUser
 # Create your views here.
 
 
-def index(request, t=None):
-
-    reccent_list = BlogArticle.objects.filter(privacy=False, is_delete=False)[:5]
-    category_list = ArticleCategory.objects.filter(category_type="2", is_delete=False)
+def index(request):
+    newest_list = BlogArticle.objects.filter(privacy=False, is_delete=False)[:5]
+    recommend_list = BlogArticle.objects.filter(privacy=False, recommend=True, is_delete=False)[:5]
     popular_list = BlogArticle.objects.filter(privacy=False, is_delete=False).order_by("-read_num")[:5]
+    one_category_list = ArticleCategory.objects.filter(category_type="1", is_delete=False)
+    tow_category_list = ArticleCategory.objects.filter(category_type="2", is_delete=False)
+    blog_count = BlogArticle.objects.filter(is_delete=False).count()
     context = {
-        "reccent_list": reccent_list,
-        "category_list": category_list,
-        "popular_list": popular_list
+        "recommend_list": recommend_list,
+        "one_category_list": one_category_list,
+        "tow_category_list": tow_category_list,
+        "popular_list": popular_list,
+        "newest_list": newest_list,
+        "blog_count": blog_count,
     }
-    if t == 2:
-        blog_list = BlogArticle.objects.filter(recommend=True, is_delete=False)[:6]
-        context["blog_list"] = blog_list
-        return render(request, 'index2.html', context)
-    elif t == 3:
-        blog_list = BlogArticle.objects.filter(recommend=True, is_delete=False)[:4]
-        context["blog_list"] = blog_list
-        return render(request, 'index3.html', context)
-    blog_list = BlogArticle.objects.filter(recommend=True, is_delete=False)[:5]
-    context["blog_list"] = blog_list
     return render(request, 'index.html', context)
 
 
@@ -46,20 +41,21 @@ def register(request):
 
 
 def login(request):
-    if not request.POST.get('username', None):
-        return JsonResponse(name_empty)
+    if request.method == "POST":
+        if not request.POST.get('username', None):
+            return HttpResponse("必须输入用户名")
 
-    if verification_username_exist(request):
-        return JsonResponse(name_exist)
+        if verification_username_exist(request):
+            return HttpResponse("用户名不存在")
 
-    password = request.POST.get('password', None)
-    obj = BlogUser.objects.get(username=request.POST.get('username'))
-    if not check_password(password, obj.password):
-        return JsonResponse(wrong_n_p)
+        password = request.POST.get('password', None)
+        obj = BlogUser.objects.get(username=request.POST.get('username'))
+        if not check_password(password, obj.password):
+            return HttpResponse("用户名或密码错误")
 
-    set_session(request, obj=obj)
-    msg_dict = {'status': 1}
-    return JsonResponse(msg_dict)
+        set_session(request, obj=obj)
+        return redirect(request.session['pre_path'])
+    return render(request, 'login.html')
 
 
 def logout(request):

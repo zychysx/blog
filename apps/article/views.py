@@ -1,26 +1,29 @@
 from django.shortcuts import render, HttpResponse
 from django.http.response import JsonResponse
 from django.core.paginator import Paginator
+from django.contrib.contenttypes.models import ContentType
+from django.db.models import Q
 from django.conf import settings
 
 from utils.forms import WriteForm
 from utils.msg_dict import *
 from utils.decorator import login_sugar
+from comment.models import Comment
 from .models import ArticleCategory, BlogArticle
 
 # Create your views here.
 
 
-@login_sugar
+# @login_sugar
 def write(request):
     if request.method == "POST":
         if not request.POST.get('blog_text', None):
             return JsonResponse(context_empty, json_dumps_params={'ensure_ascii': False})
 
-        if request.POST.get('article_title', None):
+        if not request.POST.get('article_title', None):
             return JsonResponse(title_empty, json_dumps_params={'ensure_ascii': False})
 
-        if BlogArticle.objects.filter(article_title=request.POST.get('article_title')).exist():
+        if BlogArticle.objects.filter(article_title=request.POST.get('article_title')).exists():
             return JsonResponse(title_exist, json_dumps_params={'ensure_ascii': False})
 
         data_dict = dict()
@@ -36,9 +39,7 @@ def write(request):
 
     write_form = WriteForm()
     teg_list = ArticleCategory.objects.filter(category_type="2", is_delete=False)
-    return render(request, 'write.html', {"write_form": write_form,
-                                          "teg_list": teg_list
-                                          })
+    return render(request, 'write.html', {"write_form": write_form, "teg_list": teg_list})
 
 
 def article_list(request, t=None):
@@ -47,9 +48,19 @@ def article_list(request, t=None):
     tag_list = [i if i == 'checkbox_all' else int(i) for i in request.GET.getlist("category", default_tag_list)]
     filter_list = [i for i in tag_list if isinstance(i, int)]
 
-    if request.GET.get("privacy", False) and hasattr(request.blog_user, 'user_uuid'):
-        blog_list = BlogArticle.objects.filter(category__in=filter_list, privacy=True, article_user=request.blog_user,
-                                               is_delete=False)
+    if request.GET.get("privacy", False) and hasattr(request.blog_user, 'user_uuid') and request.GET.get("recommend", False):
+        blog_list = BlogArticle.objects.filter(
+            Q(category__in=filter_list, privacy=False, is_delete=False) |
+            Q(category__in=filter_list, is_delete=False, privacy=True, article_user=request.blog_user) |
+            Q(category__in=filter_list, recommend=True, is_delete=False)
+        )
+        tag_list += ["privacy", "recommend"]
+
+    elif request.GET.get("privacy", False) and hasattr(request.blog_user, 'user_uuid'):
+        blog_list = BlogArticle.objects.filter(
+            Q(category__in=filter_list,  privacy=False, recommend=True, is_delete=False) |
+            Q(category__in=filter_list, is_delete=False, privacy=True, article_user=request.blog_user
+              ))
         tag_list.append("privacy")
 
     elif request.GET.get("recommend", False):
@@ -57,23 +68,15 @@ def article_list(request, t=None):
         tag_list.append("recommend")
 
     else:
-        blog_list = BlogArticle.objects.filter(category__in=filter_list, privacy=False, is_delete=False)
+        blog_list = BlogArticle.objects.filter(category__in=filter_list, privacy=False, recommend=False, is_delete=False)
 
     page_num = int(request.GET.get("page_num", 1))
     context = {
         "category_list": category_list,
         "tag_list": tag_list,
     }
-
-    if t == 2:
-        blog_list, all_page_num, count_num, has_pre, has_next, page_range = fenye(blog_list,
-                                                                                  page_num, settings.LIST_TOW_PAGE_NUM)
-    elif t == 3:
-        blog_list, all_page_num, count_num, has_pre, has_next, page_range = fenye(blog_list,
-                                                                                  page_num, settings.LIST_TOW_PAGE_NUM)
-    else:
-        blog_list, all_page_num, count_num, has_pre, has_next, page_range = fenye(blog_list,
-                                                                                  page_num, settings.LIST_ONE_PAGE_NUM)
+    blog_list, all_page_num, count_num, has_pre, has_next, page_range = fenye(blog_list, page_num,
+                                                                              settings.LIST_ONE_PAGE_NUM)
     context["blog_list"] = blog_list
     context["all_page_num"] = all_page_num
     context["count_num"] = count_num
@@ -81,11 +84,7 @@ def article_list(request, t=None):
     context["has_next"] = has_next
     context["page_range"] = page_range
     context["page_num"] = page_num
-    if t == 2:
-        return render(request, 'blog-2-column.html', context)
-    elif t == 3:
-        return render(request, 'blog-3-column.html', context)
-    return render(request, 'blog.html', context)
+    return render(request, 'list.html', context)
 
 
 def article_details(request, article_uuid):
@@ -96,8 +95,9 @@ def article_details(request, article_uuid):
     else:
         if obj.privacy and request.blog_user != obj.article_user and request.blog_user.is_super:
             return HttpResponse('没有查看此文章的权限')
-
-    return render(request, 'details.html', {"obj": obj})
+    blog_content_type = ContentType.objects.get_for_model(obj)
+    comment_list = Comment.objects.filter(content_type=blog_content_type, object_uuid=obj.article_uuid)
+    return render(request, 'details.html', {"obj": obj, "comment_list": comment_list})
 
 
 def fenye(obj, page_num, page_size):

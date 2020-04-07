@@ -33,7 +33,6 @@ urlpatterns = [
     path(r'user/', include("blog_user.urls")),
     path(r'blog/', include('article.urls')),
 
-    path('<int:t>.html', index, name="index"),
     path(r'', index),
 ]
 

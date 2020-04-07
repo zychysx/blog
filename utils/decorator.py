@@ -9,5 +9,5 @@ def login_sugar(func):
         if hasattr(request.blog_user, 'user_uuid'):
             return func(request, *args, **kwargs)
         else:
-            return redirect('/')
+            return redirect('/user/login.html')
     return wapper
