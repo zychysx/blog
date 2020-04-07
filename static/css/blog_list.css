@@ -1,0 +1,21 @@
+.article_list{
+    border: 1px #ccc solid;
+    margin-top: 2em;
+}
+.blog_tag{
+    border: 1px #ccc solid;
+    border-radius: 10px;
+    padding: 1em 0 0.5em 1em;
+    overflow: hidden;
+    margin-bottom: 1em;
+}
+.img_div{
+    padding: 0;
+}
+.title_div{
+    padding: 2em;
+}
+
+.pages{
+    margin: 0 auto;
+}

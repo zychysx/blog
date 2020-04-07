@@ -18,7 +18,7 @@ class BlogUser(BlogBaseModel):
     user_uuid = models.UUIDField(default=uuid.uuid4, primary_key=True, verbose_name="UUID",
                                  help_text="用户UUID")
     username = models.CharField(max_length=18, unique=True, verbose_name="用户名")
-    password = models.CharField(max_length=128, verbose_name="密码", help_text="密码")
+    password = models.CharField(max_length=150, verbose_name="密码", help_text="密码")
     nick_name = models.CharField(max_length=5, verbose_name="昵称")
     birthday = models.DateField(null=True, blank=True, verbose_name="生日")
     mobile = models.CharField(null=True, blank=True, max_length=14, verbose_name="手机号")

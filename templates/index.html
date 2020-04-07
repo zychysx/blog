@@ -1,470 +1,200 @@
-﻿{% block head %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-    <title>{% block title %}张老三的鞋柜{% endblock %}</title>
-    <!-- META TAGS -->
+    {% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <!-- CSS FILES -->
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/fontawesome.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/slick.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
-    {% block extra_css %}{% endblock %}
-
+    {% block title  %}<title>张老三的鞋柜</title>{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/clear_default_style.css' %}">
+{#    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">#}
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    {% endblock %}
+    {% block ext_css %}
+    {% endblock %}
 </head>
-{% endblock %}
-{% block style%} {% endblock %}
 <body>
-    <!-- READING POSITION INDICATOR -->
-    <progress value="0" id="eskimo-progress-bar">
-        <span class="eskimo-progress-container">
-            <span class="eskimo-progress-bar"></span>
-        </span>
-    </progress>
-    <!-- SITE WRAPPER -->
-    <div id="eskimo-site-wrapper">
-        <!-- MAIN CONTAINER -->
-        <main id="eskimo-main-container">
-            <div class="container">
-                {% block left %}
-                <!-- SIDEBAR -->
-                <div id="eskimo-sidebar">
-                    <div id="eskimo-sidebar-wrapper" class="d-flex align-items-start flex-column h-100 w-100">
-                        <!-- LOGO -->
-                        <div id="eskimo-logo-cell" class="w-100">
-                            <a class="eskimo-logo-link" href="index.html">
-                                <img src="{% static 'images/logo.png' %}" class="eskimo-logo" alt="eskimo" />
-                            </a>
-                        </div>
-                        <!-- MENU CONTAINER -->
-                        <div id="eskimo-sidebar-cell" class="w-100">
-                            <!-- MOBILE MENU BUTTON -->
-                            <div id="eskimo-menu-toggle">MENU</div>
-                            <!-- MENU -->
-                            <nav id="eskimo-main-menu" class="menu-main-menu-container">
-                                <ul class="eskimo-menu-ul">
-                                    <li><a href="#">Home</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="/">首页 1</a></li>
-                                            <li><a href="{% url 'index' 2 %}">首页 2</a></li>
-                                            <li><a href="{% url 'index' 3 %}">首页 3</a></li>
-                                        </ul>
-                                    </li>
-{#                                    <li><a href="#">About Me</a>#}
-{#                                        <ul class="sub-menu">#}
-{#                                            <li><a href="about.html">Demo 1</a></li>#}
-{#                                            <li><a href="about-2.html">Demo 2</a></li>#}
-{#                                        </ul>#}
-{#                                    </li>#}
-                                    <li><a href="#">Blog</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{% url 'blog_list' %}">文章列表 1</a></li>
-                                            <li><a href="{% url 'blog_list_t' 2 %}">文章列表 2</a></li>
-                                            <li><a href="{% url 'blog_list_t' 3 %}">文章列表 3</a></li>
-                                        </ul>
-                                    </li>
-{#                                    <li><a href="other-features.html">Other Features</a></li>#}
-                                </ul>
-                            </nav>
-                        </div>
-                        <!-- SOCIAL MEDIA ICONS -->
-                        <div id="eskimo-social-cell" class="mt-auto w-100">
-                            <div id="eskimo-social-inner">
-                                <ul class="eskimo-social-icons">
-                                    <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-vimeo"></i></a></li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endblock %}
-                {% block top_icons %}
-                <!-- TOP ICONS -->
-                <ul class="eskimo-top-icons">
-                    <li id="eskimo-panel-icon">
-                        <a href="#eskimo-panel" class="eskimo-panel-open"><i class="fa fa-bars"></i></a>
-                    </li>
-                    <li id="eskimo-search-icon">
-                        <a id="eskimo-open-search" href="#"><i class="fa fa-search"></i></a>
+    {% block nav %}
+    <!--    导航栏-->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-home"></span>&nbsp张老三的鞋柜</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{% url 'blog_list' %}"><span class="glyphicon glyphicon-pencil"></span>&nbsp博客列表 <span class="sr-only">(current)</span></a></li>
+<!--                    <li><a href="#">博客分类</a></li>-->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-book"></span>&nbsp博客分类 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+{#                            {% for i in one_category_list %}#}
+{#                                <li><a ole="presentation" class="dropdown-header" href="/blog/list.html?tag={{ i.id }}">{{ i.name }}</a></li>#}
+                                {% for j in tow_category_list %}
+                                    <li><a href="/blog/list.html?tag={{ j.id }}">{{ j.name }}</a></li>
+                                {% endfor %}
+{#                                <li role="separator" class="divider"></li>#}
+{#                            {% endfor %}#}
+                        </ul>
                     </li>
                 </ul>
-                <div class="clearfix"></div>
-                {% endblock %}
-                {% block middle %}
-                <!-- SLIDER -->
-                <div class="eskimo-carousel-container eskimo-bg-loader">
-                    <div id="eskimo-post-slider" class="eskimo-slider">
-                        <!-- SLIDE 1 -->
-                        <div>
-                            <a class="eskimo-slider-img" href="details.html"></a>
-                            <ul class="eskimo-slider-image-meta eskimo-image-meta-post">
-                                <li><a href="details.html"><span class="badge badge-default">May 28, 2018</span></a></li>
-                                <li><a href="category.html"><span class="badge badge-default">Food &amp; Drink</span></a></li>
-                            </ul>
-                            <div class="clearfix"></div>
-                            <img src="{% static 'uploads/2018/05/blog4-1-1200x600.jpg' %}" alt="Ketchup Flavored Ice Cream!" />
-                            <div class="eskimo-slider-desc">
-                                <div class="eskimo-slider-desc-inner">
-                                    <h2 class="card-title">Ketchup Flavored Ice Cream!</h2>
-                                    <p>Mandaremus illum possumus ullamco e qui de nisi enim anim. Si nulla si nisi, veniam litteris sed excepteur ne ut amet deserunt tempor nam expetendis de enim mandaremus. Ita ea minim esse cillum ut eram arbitror ullamco. Tamen ad expetendis ab ipsum proident</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- SLIDE 2 -->
-                        <div>
-                            <a class="eskimo-slider-img" href="details.html"></a>
-                            <ul class="eskimo-slider-image-meta eskimo-image-meta-post">
-                                <li><a href="details.html"><span class="badge badge-default">May 27, 2018</span></a></li>
-                                <li><a href="category.html"><span class="badge badge-default">Lifestyle</span></a></li>
-                            </ul>
-                            <div class="clearfix"></div>
-                            <img src="{% static 'uploads/2018/05/blog1-1200x600.jpg' %}" alt="Hair You've Always Dreamed Of" />
-                            <div class="eskimo-slider-desc">
-                                <div class="eskimo-slider-desc-inner">
-                                    <h2 class="card-title">Hair You've Always Dreamed Of</h2>
-                                    <p>Ex si esse deserunt, et dolore occaecat, singulis tamen e possumus voluptatibus, varias cernantur si aute quid. Noster vidisse iis exquisitaque, deserunt te irure. Ubi illum nostrud fidelissimae id occaecat duis probant. Occaecat hic quorum aliquip se</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- SLIDE 3 -->
-                        <div>
-                            <a class="eskimo-slider-img" href="details.html"></a>
-                            <ul class="eskimo-slider-image-meta eskimo-image-meta-post">
-                                <li><a href="details.html"><span class="badge badge-default">May 25, 2018</span></a></li>
-                                <li><a href="category.html"><span class="badge badge-default">Lifestyle</span></a></li>
-                                <li><a href="category.html"><span class="badge badge-default">Travel</span></a></li>
-                            </ul>
-                            <div class="clearfix"></div>
-                            <img src="{% static 'uploads/2018/05/blog-1200x600.jpg' %}" alt="15 Of The World's Best Carnivals" />
-                            <div class="eskimo-slider-desc">
-                                <div class="eskimo-slider-desc-inner">
-                                    <h2 class="card-title">15 Of The World's Best Carnivals</h2>
-                                    <p>Aliquip e duis. Se labore ullamco excepteur iis ullamco sint duis laboris amet sed ita occaecat de cernantur quo fore coniunctione voluptate enim senserit. Si ut nulla laboris, an eiusmod e incididunt. Non varias enim duis singulis, a quorum cupidatat. Voluptate summis</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- SLIDE 4 -->
-                        <div>
-                            <a class="eskimo-slider-img" href="details.html"></a>
-                            <ul class="eskimo-slider-image-meta eskimo-image-meta-post">
-                                <li><a href="details.html"><span class="badge badge-default">May 25, 2018</span></a></li>
-                                <li><a href="category.html"><span class="badge badge-default">Lifestyle</span></a></li>
-                            </ul>
-                            <div class="clearfix"></div>
-                            <img src="{% static 'uploads/2018/05/blog19-1200x600.jpg' %}" alt="5 Ways to a Healthy Lifestyle" />
-                            <div class="eskimo-slider-desc">
-                                <div class="eskimo-slider-desc-inner">
-                                    <h2 class="card-title">5 Ways to a Healthy Lifestyle</h2>
-                                    <p>Mandaremus veniam ab cupidatat exquisitaque, e quae laboris domesticarum, non sint mentitum fabulas de anim proident transferrem, ita aliqua imitarentur in in labore illum eram offendit, nisi fidelissimae possumus noster ullamco se eiusmod multos ex</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- SLIDE 5 -->
-                        <div>
-                            <a class="eskimo-slider-img" href="details.html"></a>
-                            <ul class="eskimo-slider-image-meta eskimo-image-meta-post">
-                                <li><a href="details.html"><span class="badge badge-default">May 23, 2018</span></a></li>
-                                <li><a href="category.html"><span class="badge badge-default">Food &amp; Drink</span></a></li>
-                                <li><a href="category.html"><span class="badge badge-default">Travel</span></a></li>
-                            </ul>
-                            <div class="clearfix"></div>
-                            <img src="{% static 'uploads/2018/05/blog5-1200x600.jpg' %}" alt="Best Breakfast In The World" />
-                            <div class="eskimo-slider-desc">
-                                <div class="eskimo-slider-desc-inner">
-                                    <h2 class="card-title">Best Breakfast In The World</h2>
-                                    <p>Fabulas relinqueret aut quamquam. Lorem possumus pariatur ut quibusdam transferrem an tempor. E consequat nam senserit, aliquip tamen est commodo illustriora. An cillum sunt ut quamquam. Laboris culpa occaecat, quo fugiat dolore varias consequat</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- BLOG POSTS -->
-                <!-- POST 1 -->
-                <div id="blog_list">
-                {% for i in blog_list %}
-                <div class="card card-horizontal">
-                    <div class="card-body">
-                        <div class="card-horizontal-left">
-                            <div class="card-category">
-                                <a href="javascript:void(0);">{{ i.category.name }}</a>
-                            </div>
-                            <h3 class="card-title"><a href="/blog/{{ i.article_uuid }}.html">{{ i.article_title }}</a></h3>
-                            <div class="card-excerpt">
-                                <p>{{ i.content | safe | truncatechars:50 }}</p>
-                            </div>
-                            <div class="card-horizontal-meta">
-                                <div class="eskimo-author-meta">
-                                    By <a class="author-meta" href="javascript:void(0);">{{ i.article_user.nick_name }}</a>
-                                </div>
-                                <div class="eskimo-date-meta">
-                                    <a href="javascript:void(0);">{{ i.create_time }}</a>
-                                </div>
-                                <div class="eskimo-reading-meta">阅读数: {{ i.read_num }}</div>
-                            </div>
-                        </div>
-                        <div class="card-horizontal-right" data-img="{% static 'uploads/2018/05/blog18-1024x682.jpg' %}">
-                            <a class="card-featured-img" href=href="/blog/{{ i.article_uuid }}.html"></a>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-                </div>
-                <!-- VIEW ALL BUTTON -->
-                <div class="eskimo-view-more">
-                    <a class="btn btn-default" href="blog.html">VIEW ALL POSTS</a>
-                </div>
-                
-                <!-- DIVIDER -->
-                <hr class="section-divider" />
-
-                <!-- CAROUSEL -->
-                <div class="eskimo-widget-title">
-                    <h3 class="eskimo-carousel-title"><span>POPULAR POSTS</span></h3>
-                </div>
-
-                <div class="eskimo-carousel-container">
-                    <div class="eskimo-carousel-view-more">
-                        <a href="blog.html">VIEW ALL</a>
-                    </div>
-
-                    <div id="eskimo-post-carousel" class="eskimo-carousel">
-                        {% for i in popular_list %}
-                            <div>
-                                <div class="card-masonry card-small">
-                                    <div class="card">
-                                        <a href="/blog/{{ i.article_uuid }}.html">
-                                            <img class="card-vertical-img" src="{% static 'uploads/2018/05/blog12-900x600.jpg' %}" alt="5 Ways to a Healthy Lifestyle" />
-                                        </a>
-                                        <div class="card-border">
-                                            <div class="card-body">
-                                                <div class="card-category">
-                                                    <a href="/blog/{{ i.article_uuid }}.html">{{ i.create_time }}</a>
-                                                </div>
-                                                <h5 class="card-title"><a href="/blog/{{ i.article_uuid }}.html">{{ i.article_title }}</a></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                {% endblock %}
-            </div>
-        </main>
-        {% block footer %}
-        <!-- FOOTER -->
-        <footer id="eskimo-footer">
-            <div class="container">
-                <div class="row eskimo-footer-wrapper">
-                    <!-- FOOTER WIDGET 1 -->
-                    <div class="col-12 col-lg-6 mb-4 mb-lg-0">
-                        <h5 class="eskimo-title-with-border"><span>About Me</span></h5>
-                        <p>Trusted by thousands of customers, my unique themes and plugins help you make beautiful responsive web sites with ease.</p>
-                        <p><a href="about.html" class="btn btn-default">Read More</a></p>
-                    </div>
-                    <!-- FOOTER WIDGET 2 -->
-                    <div class="col-12 col-lg-6">
-                        <h5 class="eskimo-title-with-border"><span>Newsletter</span></h5>
-                        <form method="post" action="index.html">
-                            <label>Subscribe to our mailing list!</label>
-                            <div class="input-group">
-                                <input type="email" class="form-control" name="EMAIL" placeholder="Your email address" required />
-                                <div class="input-group-append"> 
-                                    <input type="submit" value="Sign up"  class="btn btn-default" />
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- CREDITS -->
-                <div class="eskimo-footer-credits">
-                    <p>
-                        <p>备案号：京ICP备18011252号-1</p>
-                    </p>
-                </div>
-            </div>
-        </footer>
-        {% endblock %}
-    </div>
-    {% block go_top %}
-    <!-- GO TO TOP BUTTON -->
-    <a id="eskimo-gototop" href="#"><i class="fa fa-chevron-up"></i></a>
-    {% endblock %}
-    {% block bottom %}
-    <!-- SLIDE PANEL OVERLAY -->
-    <div id="eskimo-overlay"></div>
-    <!-- SLIDE PANEL -->
-    <div id="eskimo-panels">
-        <aside id="eskimo-panel" class="eskimo-panel">
-            <div class="eskimo-panel-inner">
-                <!-- CLOSE SLIDE PANEL BUTTON -->
-                <a href="#" class="eskimo-panel-close"><i class="fa fa-times"></i></a>
-                <!-- AUTHOR BOX -->
-                <div class="eskimo-author-box eskimo-widget">
-                    <div class="eskimo-author-img">
-                        <img src="{% static 'uploads/2018/05/img.jpg' %}" alt="JOHN DOE" />
-                    </div>
+                <ul class="nav navbar-nav navbar-right">
                     {% if request.session.user_uuid %}
-                        <a href="#" class="eskimo-author-subtitle"><h3><span>你好,{{ request.blog_user.nick_name }}</span></h3></a>
-                        <a  id="logout_btn" class="btn btn-default" href="{% url 'logout' %}" >退出</a>
+                    <li><a href="{% url 'register.html' %}"><span class="glyphicon glyphicon-user"></span> {{ request.session.user_uuid }}</a></li>
+                    <li><a href="{% url 'register.html' %}"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
+                    <li><a href="{% url 'login.html' %}"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
                     {% else %}
-                    <a href="{% url 'register.html' %}" class="eskimo-author-subtitle"><h3><span>注册通道</span></h3></a>
-
-                    <form action="{% url 'login' %}" method="post">
-                        {% csrf_token %}
-                        <div class="eskimo-author-box-btn">
-                            <input type="text" name="username" id="username" placeholder="用户名">
-                        </div>
-                        <p class="eskimo-author-description"></p>
-                        <div class="eskimo-author-box-btn">
-                            <input type="password" name="password" id="password" placeholder="密码">
-                        </div>
-                        <span class="eskimo-author-description login_prompt" id="login_prompt"></span>
-                        <p class="eskimo-author-description" id="login_prompt"></p>
-                        <div class="eskimo-author-box-btn">
-                        <button type="button" id="login_btn" class="btn btn-default" >登录</button>
-                        </div>
-                    </form>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.blog_user.nick_name }}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">个人中心{{ request.session.user_uuid }}</a></li>
+                            <li><a href="write.html">写博客</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{% url 'logout' %}">退出</a></li>
+                        </ul>
+                    </li>
                     {% endif %}
-                </div>
-                <!-- RECENT POSTS -->
-                <div class="eskimo-recent-entries eskimo-widget">
-                    <h5 class="eskimo-title-with-border"><span>最近更新</span></h5>
-                    <ul>
-                        {% for i in reccent_list %}
-                        <li>
-                            <a href="/blog/{{ i.article_uuid }}.html">{{ i.article_title }}</a>
-                            <span class="post-date">{{ i.create_time }}</span>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <!-- CATEGORIES -->
-                <div class="eskimo-categories eskimo-widget">
-                    <h5 class="eskimo-title-with-border"><span>分类</span></h5>
-                    <ul>
-                        {% for i in category_list %}
-                            <li>
-                                <a href="/blog/list.html?tag={{ i.id }}" title="The best restaurants, cafes, bars and shops in town.">{{ i.name }}</a> <span class="badge badge-pill badge-default">{{ i.tag_num }}</span>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <!-- TAGS -->
-                <div class="eskimo-widget">
-                    <h5 class="eskimo-title-with-border"><span>Tags</span></h5>
-                    <div class="eskimo-tag-cloud">
-                        <a href="javascript:void(0);">aute<span>7</span></a>
-                        <a href="javascript:void(0);">enim<span>7</span></a>
-                        <a href="javascript:void(0);">commodo<span>7</span></a>
-                        <a href="javascript:void(0);">voluptatibus<span>7</span></a>
-                        <a href="javascript:void(0);">culpa<span>7</span></a>
-                        <a href="javascript:void(0);">offendit<span>7</span></a>
-                        <a href="javascript:void(0);">magna<span>7</span></a>
-                        <a href="javascript:void(0);">quorum<span>7</span></a>
-                        <a href="javascript:void(0);">mandaremus<span>7</span></a>
-                        <a href="javascript:void(0);">ingeniis<span>7</span></a>
-                        <a href="javascript:void(0);">tempor<span>7</span></a>
-                        <a href="javascript:void(0);">summis<span>7</span></a>
-                        <a href="javascript:void(0);">consequat<span>6</span></a>
-                        <a href="javascript:void(0);">iudicem<span>6</span></a>
-                        <a href="javascript:void(0);">expetendis<span>6</span></a>
-                        <a href="javascript:void(0);">deserunt<span>6</span></a>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
                     </div>
-                </div>
-            </div>
-        </aside>
-    </div>
-    <!-- FULLSCREEN SEARCH -->
-    <div id="eskimo-fullscreen-search">
-        <div id="eskimo-fullscreen-search-content">
-            <a href="#" id="eskimo-close-search"><i class="fa fa-times"></i></a>
-            <form role="search" method="get" action="search.html" class="eskimo-lg-form">
-                <div class="input-group">
-                    <input type="text" class="form-control form-control-lg" placeholder="Enter a keyword..." name="s" />
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                    </div>
-                </div>
-            </form>
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </form>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <!--    END导航栏-->
+    {% endblock %}
+    {% block jumbotron %}
+    <!--    巨幕-->
+    <div class="jumbotron">
+        <div class="container">
+            <br>
+            <h1>欢迎来到张老三的鞋柜(Blog)！</h1>
+            <p>这是一个无聊时期练手的作品。</p>
+<!--        <p><a class="btn btn-primary btn-lg" role="button">-->
+<!--                   学习更多</a>-->
+<!--         </p>-->
         </div>
     </div>
+    <!--    END巨幕-->
     {% endblock %}
-    {% block js_files %}
-    <!-- JS FILES -->
-    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/salvattore.min.js' %}"></script>
-    <script src="{% static 'js/slick.min.js' %}"></script>
-    <script src="{% static 'js/panel.js' %}"></script>
-    <script src="{% static 'js/reading-position-indicator.js' %}"></script>
-    <script src="{% static 'js/custom.js' %}"></script>
-    <script src="{% static 'js/login.js' %}"></script>
-    {% endblock %}
-    {% block extra_js_files %}{% endblock %}
-    {% block js %}
-    <!-- POST SLIDER -->
-    <script>
-        (function($) {
-            "use strict";
-            $(document).ready(function() {
-                $('#eskimo-post-slider').slick({
-                    autoplay: true,
-                    autoplaySpeed: 5000,
-                    slidesToScroll: 1,
-                    adaptiveHeight: true,
-                    slidesToShow: 1,
-                    arrows: true,
-                    dots: false,
-                    fade: true
-                });
-            });
-            $(window).on('load', function() {
-                $('#eskimo-post-slider').css('opacity', '1');
-                $('#eskimo-post-slider').parent().removeClass('eskimo-bg-loader');
-            });
-        })(jQuery);
-    </script>
-    <!-- POST CAROUSEL -->
-    <script>
-        (function($) {
-            "use strict";
-            $(document).ready(function() {
-                $('#eskimo-post-carousel').slick({
-                    infinite: false,
-                    slidesToScroll: 1,
-                    arrows: true,
-                    dots: false,
-                    slidesToShow: 3,
-                    responsive: [{
-                        breakpoint: 992,
-                        settings: {
-                            slidesToShow: 2
-                        }
-                    }, {
-                        breakpoint: 576,
-                        settings: {
-                            slidesToShow: 1
-                        }
-                    }]
+    {% block middle %}
+    <!--    中间部分-->
+    <div class="container">
 
-                });
-                $('#eskimo-post-carousel').css('opacity', '1');
-            });
-        })(jQuery);
-    </script>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xm-12">
+                <h3>博客分类</h3><p>共{{ blog_count }}篇 <a href="{% url 'blog_list' %}">>></a></p>
+                <hr/>
+                <ul class="tag_list">
+                    {% for i in tow_category_list %}
+                        <li><a href="/blog/list.html?tag={{ i.id }}">{{ i.name }}</a></li>
+
+                    {% endfor %}
+
+                </ul>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xm-12">
+                <ul class="nav nav-pills nav-justified">
+                    <li class="active" role="presentation"><a href="#official_account" aria-controls="official_account" role="tab" data-toggle="tab">公众号</a></li>
+                    <li role="presentation"><a href="#month_read_chart" aria-controls="month_read_chart" role="tab" data-toggle="tab">月榜单图</a></li>
+<!--                    <li role="presentation" class="disabled"><a href="#">iOS（禁用链接）</a></li>-->
+                    <li role="presentation"><a href="#all_read_chart" aria-controls="all_read_chart" role="tab" data-toggle="tab">总榜单图</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="official_account"><p>公众号暂无待补</p></div>
+                    <div role="tabpanel" class="tab-pane fade" id="month_read_chart">月榜单暂无待补</div>
+                    <div role="tabpanel" class="tab-pane fade" id="all_read_chart">总榜单暂无待补</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12  col-xm-12">
+                <h3>最新发布</h3>
+                <hr/>
+                <ul class="tag_list">
+                    {% for i in newest_list %}
+                        <li><a href="/blog/{{ i.article_uuid }}.html">{{ i.article_title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12  col-xm-12">
+                <h3>最新推荐</h3>
+                <hr/>
+                <ul class="tag_list">
+                    {% for i in recommend_list %}
+                        <li><a href="/blog/{{ i.article_uuid }}.html">{{ i.article_title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12  col-xm-12">
+                <h3>阅读排行</h3>
+                <hr/>
+                <ul class="tag_list">
+                    {% for i in popular_list %}
+                        <li><a href="/blog/{{ i.article_uuid }}.html">{{ i.article_title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--    END中间部分-->
+    {% endblock %}
+    {% block footer %}
+    <!--    页脚-->
+    <hr/>
+    <div class="container">
+    <div class="row">
+
+        <div class="col-lg-4 col-md-4 col-sm-12  col-xm-12">
+            <h4>关于本站</h4>
+            <hr/>
+            <ul class="tag_list">
+                <li><p>1、基于Django+Bootstrap开发</p></li>
+                <li><p>2、主要发表本人生活博客</p></li>
+                <li><p>2、>备案号：京ICP备18011252号-1</p></li>
+            </ul>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12  col-xm-12">
+            <h4>建议反馈</h4>
+            <hr/>
+            <ul class="tag_list">
+                <li><p>1、可在相应的博文底下评论</p></li>
+
+            </ul>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12  col-xm-12">
+            <h4>友情链接</h4>
+            <hr/>
+            <ul class="tag_list">
+                <li><p>1、可在相应的博文底下评论</p></li>
+                <li><p>2、备案号</p></li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    <!--    END页脚-->
     {% endblock %}
 </body>
-
+    {% block js_files %}
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% endblock %}
+    {% block ext_js %}
+    {% endblock %}
 </html>

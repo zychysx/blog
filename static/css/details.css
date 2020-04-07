@@ -1,0 +1,50 @@
+.comment_par{
+    overflow: hidden;
+    padding-bottom: 0.5em;
+    border-bottom: 1px #ddd solid;
+    margin-top: 1.5em;
+}
+.comment_img{
+    width: 64px;
+    text-align: center;
+    float: left;
+}
+.comment_tow{
+    /*float: left;*/
+    margin-left: 75px;
+}
+.comment_conent{
+    height: 5em;
+}
+.comment_reply{
+    border-top: 1px #ddd dashed;
+    padding-top: 0.2em;
+}
+.reply_head{
+    width: 32px;
+    height: 32px;
+    /*border-radius: 4px;*/
+    float: left;
+    margin-top:4px;
+}
+.reply_body{
+    margin-left: 40px;
+    padding-top: 0.5em;
+}
+.reply_name{
+    font-weight: bolder;
+}
+
+.emojione{
+    font-size: inherit;
+    height: 2ex;
+    width: 2.1ex;
+    min-height: 20px;
+    min-width: 20px;
+    display: inline-block;
+    margin: -.2ex .15em .2ex;
+    line-height: normal;
+    vertical-align: middle;
+    max-width: 100%;
+    top: 0;
+}
