@@ -3,11 +3,13 @@ from django.http import JsonResponse
 
 from .models import Comment
 from article.models import BlogArticle
+from utils.decorator import login_sugar
 from utils.msg_dict import *
 
 # Create your views here.
 
 
+@login_sugar
 def create_comment(request):
     print(request.POST)
     if not request.POST.get("comment_text", None):

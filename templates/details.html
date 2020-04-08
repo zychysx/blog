@@ -25,15 +25,11 @@
                     <span>阅读:{{ obj.read_num }}</span>
                     <span>评论:</span>
                     <span>发布时间:{{ obj.create_time }}</span>
-                    {% if obj.recommend %}
-                        <span>已推荐</span>
-                    {% else %}
-                        <span>未推荐</span>
+                    {% if obj.privacy %}
+                        <span style="color: red">隐藏</span>
                     {% endif %}
                     {% if obj.recommend %}
-                        <span>隐藏</span>
-                    {% else %}
-                        <span>公开</span>
+                        <span style="color: green">推荐</span>
                     {% endif %}
                 </div>
                 <div class="panel-body">

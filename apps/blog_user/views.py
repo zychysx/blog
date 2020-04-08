@@ -14,19 +14,13 @@ from .models import BlogUser
 
 
 def index(request):
-    newest_list = BlogArticle.objects.filter(privacy=False, is_delete=False)[:5]
-    recommend_list = BlogArticle.objects.filter(privacy=False, recommend=True, is_delete=False)[:5]
-    popular_list = BlogArticle.objects.filter(privacy=False, is_delete=False).order_by("-read_num")[:5]
-    one_category_list = ArticleCategory.objects.filter(category_type="1", is_delete=False)
-    tow_category_list = ArticleCategory.objects.filter(category_type="2", is_delete=False)
-    blog_count = BlogArticle.objects.filter(is_delete=False).count()
     context = {
-        "recommend_list": recommend_list,
-        "one_category_list": one_category_list,
-        "tow_category_list": tow_category_list,
-        "popular_list": popular_list,
-        "newest_list": newest_list,
-        "blog_count": blog_count,
+        "recommend_list": BlogArticle.objects.filter(privacy=False, recommend=True, is_delete=False)[:5],
+        "one_category_list": ArticleCategory.objects.filter(category_type="1", is_delete=False),
+        "tow_category_list": ArticleCategory.objects.filter(category_type="2", is_delete=False),
+        "popular_list": BlogArticle.objects.filter(privacy=False, is_delete=False).order_by("-read_num")[:5],
+        "newest_list": BlogArticle.objects.filter(privacy=False, is_delete=False)[:5],
+        "blog_count": BlogArticle.objects.filter(is_delete=False).count(),
     }
     return render(request, 'index.html', context)
 
@@ -38,7 +32,8 @@ def register(request):
         obj.save()
         set_session(request, obj=obj)
         return redirect(request.session['pre_path'])
-    return render(request, 'register.html')
+    return render(request, 'register.html',
+                  {"tow_category_list": ArticleCategory.objects.filter(category_type="2", is_delete=False)})
 
 
 def login(request):
@@ -59,7 +54,8 @@ def login(request):
 
         set_session(request, obj=obj)
         return redirect(request.session['pre_path'])
-    return render(request, 'login.html')
+    return render(request, 'login.html',
+                  {"tow_category_list": ArticleCategory.objects.filter(category_type="2", is_delete=False)})
 
 
 @login_sugar
