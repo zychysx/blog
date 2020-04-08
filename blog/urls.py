@@ -32,7 +32,7 @@ urlpatterns = [
     
     path(r'user/', include("blog_user.urls")),
     path(r'blog/', include('article.urls')),
-
+    path(r'comment/', include('comment.urls')),
     path(r'', index),
 ]
 

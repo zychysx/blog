@@ -4,3 +4,4 @@ def set_session(request, obj=None):
 
 def del_session(request, obj=None):
     del request.session['user_uuid']
+    del request.blog_user

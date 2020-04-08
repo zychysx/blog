@@ -11,13 +11,13 @@ $(function () {
 
 
     $("input[name='privacy']").change(function () {
-        privacy_cheange($(this));
+        // privacy_cheange($(this));
         $('#blog_list_form').submit();
     });
 
 
     $("input[name='recommend']").change(function () {
-        recommend_cheange($(this));
+        // recommend_cheange($(this));
         $('#blog_list_form').submit();
     });
 
@@ -35,18 +35,18 @@ $(function () {
         }
 
 
-    function privacy_cheange(obj) {
-        if (obj.is(':checked')){
-            $('#checkbox_recommend').prop('checked', false)
-        }
-    }
-
-
-    function recommend_cheange(obj) {
-        if (obj.is(':checked')){
-            $('#privacy').prop('checked', false)
-        }
-    }
+    // function privacy_cheange(obj) {
+    //     if (obj.is(':checked')){
+    //         $('#checkbox_recommend').prop('checked', false)
+    //     }
+    // }
+    //
+    //
+    // function recommend_cheange(obj) {
+    //     if (obj.is(':checked')){
+    //         $('#privacy').prop('checked', false)
+    //     }
+    // }
 
 
     function tag_selection(obj) {

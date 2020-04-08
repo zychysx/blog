@@ -57,7 +57,7 @@
                     <div class="comment_par">
                         <div class="comment_img">
                             <img src="{% static 'images/head_64x64.jpg' %}" alt="..." class="img-rounded img-responsive">
-                            <p>i.user.nick_name</p>
+                            <p>{{ i.user.nick_name }}</p>
                         </div>
                         <div class="comment_tow">
                             <div class="comment_conent">
@@ -107,13 +107,16 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <form role="form">
+                    <form role="form" action="/comment/write/" method="post" id="comment_form">
+                        {% csrf_token %}
                         <div class="form-group">
-                            <textarea class="form-control" rows="3" id="example"></textarea>
+                            <input type="hidden" name="content_type" value="blogarticle">
+                            <input type="hidden" name="object_uuid" value="{{ obj.article_uuid }}">
+                            <textarea class="form-control" rows="3" name="comment_text" id="comment_text" placeholder="登陆后才能发布评论"></textarea>
                         </div>
                         <div class="btn-group">
                             <button type="submit" class="btn btn-success btn-lg">提交</button>
-                            <button type="reset" class="btn btn-danger btn-lg">清空</button>
+{#                            <button type="reset" class="btn btn-danger btn-lg">清空</button>#}
                         </div>
                     </form>
                 </div>
@@ -132,7 +135,15 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#example").emojioneArea();
+        $("#comment_text").emojioneArea();
+
+        $(".comment_conent").each(function(){
+            var value = $(this).text();
+            var code = $('<div/>').text(value).html(); //html转义
+
+            $(this).html(emojione.toImage(code));
+        });
+
 
         //获取内容
         // $('#get_text').click(function(){

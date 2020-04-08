@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.http import JsonResponse
 from django.contrib.auth.hashers import check_password
 
-from utils.verification import verification_sign_up, verification_username_exist
+from utils.verification import verification_sign_up, verification_username_exist, verification_user_active
 from utils.session import set_session, del_session
 from article.models import BlogArticle, ArticleCategory
+from utils.decorator import login_sugar
 from utils.msg_dict import *
 from .models import BlogUser
 
@@ -48,6 +49,9 @@ def login(request):
         if verification_username_exist(request):
             return HttpResponse("用户名不存在")
 
+        if not verification_user_active(request):
+            return HttpResponse("用户被禁止登陆")
+
         password = request.POST.get('password', None)
         obj = BlogUser.objects.get(username=request.POST.get('username'))
         if not check_password(password, obj.password):
@@ -58,6 +62,7 @@ def login(request):
     return render(request, 'login.html')
 
 
+@login_sugar
 def logout(request):
     del_session(request)
     return redirect(request.session['pre_path'])
