@@ -14,7 +14,7 @@ from .models import ArticleCategory, BlogArticle
 # Create your views here.
 
 
-# @login_sugar
+@login_sugar
 def write(request):
     if request.method == "POST":
         if not request.POST.get('blog_text', None):
@@ -38,8 +38,8 @@ def write(request):
         return JsonResponse(success)
 
     write_form = WriteForm()
-    teg_list = ArticleCategory.objects.filter(category_type="2", is_delete=False)
-    return render(request, 'write.html', {"write_form": write_form, "teg_list": teg_list})
+    tag_list = ArticleCategory.objects.filter(category_type="2", is_delete=False)
+    return render(request, 'write.html', {"write_form": write_form, "tag_list": tag_list})
 
 
 def article_list(request, t=None):
@@ -64,7 +64,10 @@ def article_list(request, t=None):
         tag_list.append("privacy")
 
     elif request.GET.get("recommend", False):
-        blog_list = BlogArticle.objects.filter(category__in=filter_list, recommend=True, is_delete=False)
+        blog_list = BlogArticle.objects.filter(
+            Q(category__in=filter_list, privacy=False, is_delete=False) |
+            Q(category__in=filter_list, recommend=True, is_delete=False)
+        )
         tag_list.append("recommend")
 
     else:

@@ -11,8 +11,8 @@
         }
     </style>
 {% endblock %}
-{% block jumbotron %}
-{% endblock %}
+{#{% block jumbotron %}#}
+{#{% endblock %}#}
 {% block middle %}
 <!--    中间部分-->
 <div class="container">
@@ -47,8 +47,8 @@
                             <div class="form-group">
                                 <label class="mdn-label">类别 </label>
                                 <select name="category" class="form-control">
-                                    {% for i in teg_list %}
-                                    <option value="{{ i.id }}">{{ i.name }}</option>
+                                    {% for i in tag_list %}
+                                        <option value="{{ i.id }}">{{ i.name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -69,7 +69,7 @@
                 </fieldset>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success btn-lg">提交</button>
+                    <button type="button" id="sub" class="btn btn-success btn-lg">提交</button>
                     <button type="reset" class="btn btn-danger btn-lg">重置</button>
                 </div>
             </form>

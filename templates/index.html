@@ -52,19 +52,21 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if request.session.user_uuid %}
-                    <li><a href="{% url 'register.html' %}"><span class="glyphicon glyphicon-user"></span> {{ request.session.user_uuid }}</a></li>
-                    <li><a href="{% url 'register.html' %}"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
-                    <li><a href="{% url 'login.html' %}"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
-                    {% else %}
-                    <li class="dropdown">
+
+                        <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.blog_user.nick_name }}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">个人中心{{ request.session.user_uuid }}</a></li>
-                            <li><a href="write.html">写博客</a></li>
+                            <li><a href="#">个人中心</a></li>
+                            {% if request.blog_user.is_write %}
+                            <li><a href="/blog/write.html">写博客</a></li>
+                            {% endif %}
                             <li role="separator" class="divider"></li>
                             <li><a href="{% url 'logout' %}">退出</a></li>
                         </ul>
                     </li>
+                    {% else %}
+                    <li><a href="{% url 'register.html' %}"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
+                    <li><a href="{% url 'login.html' %}"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
                     {% endif %}
                 </ul>
                 <form class="navbar-form navbar-right">

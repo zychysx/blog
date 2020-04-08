@@ -96,7 +96,7 @@
                         <h3><a href="/blog/{{ i.article_uuid }}.html">{{ i.article_title }}</a></h3>
                     </div>
                     <div>
-                        <p>{{ i.content | safe | truncatewords:80 }}</p>
+                        <p>{{ i.content | safe | truncatewords:50 }}</p>
                     </div>
                     <div>
                         <span class="glyphicon glyphicon-time">{{ i.create_time }}</span>

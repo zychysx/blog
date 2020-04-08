@@ -15,7 +15,7 @@ def verification_username(request, data_dict):
 def verification_nick_name(request, data_dict):
     if not request.POST.get('nick_name', None):
         return False
-    if not 5 <= len(request.POST.get('nick_name')) and len(request.POST.get('nick_name')) >= 18:
+    if not 5 <= len(request.POST.get('nick_name')) and len(request.POST.get('nick_name')) >= 10:
         return False
     data_dict['nick_name'] = request.POST.get('nick_name')
     return data_dict
@@ -25,6 +25,14 @@ def verification_username_exist(request):
     if not request.POST.get('username', None):
         return False
     if BlogUser.objects.filter(username=request.POST.get('username')).exists():
+        return False
+    return True
+
+def verification_user_active(request):
+    if not request.POST.get('username', None):
+        return False
+    obj = BlogUser.objects.get(username=request.POST.get('username', None))
+    if not obj.is_active or obj.is_delete:
         return False
     return True
 
