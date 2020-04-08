@@ -50,7 +50,6 @@ def article_list(request, t=None):
 
     if request.GET.get("privacy", False) and hasattr(request.blog_user, 'user_uuid') and request.GET.get("recommend", False):
         blog_list = BlogArticle.objects.filter(
-            Q(category__in=filter_list, privacy=False, is_delete=False) |
             Q(category__in=filter_list, is_delete=False, privacy=True, article_user=request.blog_user) |
             Q(category__in=filter_list, recommend=True, is_delete=False)
         )
@@ -58,20 +57,16 @@ def article_list(request, t=None):
 
     elif request.GET.get("privacy", False) and hasattr(request.blog_user, 'user_uuid'):
         blog_list = BlogArticle.objects.filter(
-            Q(category__in=filter_list,  privacy=False, recommend=True, is_delete=False) |
-            Q(category__in=filter_list, is_delete=False, privacy=True, article_user=request.blog_user
-              ))
+            category__in=filter_list, is_delete=False, privacy=True, article_user=request.blog_user
+        )
         tag_list.append("privacy")
 
     elif request.GET.get("recommend", False):
-        blog_list = BlogArticle.objects.filter(
-            Q(category__in=filter_list, privacy=False, is_delete=False) |
-            Q(category__in=filter_list, recommend=True, is_delete=False)
-        )
+        blog_list = BlogArticle.objects.filter(category__in=filter_list, recommend=True, is_delete=False)
         tag_list.append("recommend")
 
     else:
-        blog_list = BlogArticle.objects.filter(category__in=filter_list, privacy=False, recommend=False, is_delete=False)
+        blog_list = BlogArticle.objects.filter(category__in=filter_list, privacy=False, is_delete=False)
 
     page_num = int(request.GET.get("page_num", 1))
     context = {
@@ -87,6 +82,7 @@ def article_list(request, t=None):
     context["has_next"] = has_next
     context["page_range"] = page_range
     context["page_num"] = page_num
+    context["tow_category_list"] = ArticleCategory.objects.filter(category_type="2", is_delete=False)
     return render(request, 'list.html', context)
 
 
@@ -100,7 +96,9 @@ def article_details(request, article_uuid):
             return HttpResponse('没有查看此文章的权限')
     blog_content_type = ContentType.objects.get_for_model(obj)
     comment_list = Comment.objects.filter(content_type=blog_content_type, object_uuid=obj.article_uuid)
-    return render(request, 'details.html', {"obj": obj, "comment_list": comment_list})
+    return render(request, 'details.html', {"obj": obj,"comment_list": comment_list,
+                                            "tow_category_list":ArticleCategory.objects.filter(category_type="2", is_delete=False)
+                                            })
 
 
 def fenye(obj, page_num, page_size):

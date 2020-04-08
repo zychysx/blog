@@ -53,7 +53,7 @@
                         {% endif %}
 
                     </label>
-                    <label class="checkbox-inline label_tag" style="color: red">
+                    <label class="checkbox-inline label_tag" style="color: green">
                         {% if "recommend" in tag_list %}
                             <input type="checkbox" checked="checked" class="b_tag" id="checkbox_recommend" name="recommend" value="recommend"> 推荐
                         {% else %}
@@ -61,7 +61,7 @@
                         {% endif %}
                     </label>
 
-                    <label class="checkbox-inline label_tag" style="color: red">
+                    <label class="checkbox-inline label_tag">
                         {% if "checkbox_all" in tag_list %}
                             <input type="checkbox" checked="checked" id="checkbox_all" name="category" value="checkbox_all"> 全部
                         {% else %}
@@ -103,6 +103,12 @@
                         <span>用户：{{ i.article_user.nick_name }}</span>
                         <span>阅读数：{{ i.read_num }}</span>
                         <span>评论：</span>
+                        {% if i.privacy %}
+                            <span style="color: red">隐藏</span>
+                        {% endif %}
+                        {% if i.recommend %}
+                            <span style="color: green">推荐</span>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xm-12 img_div">
